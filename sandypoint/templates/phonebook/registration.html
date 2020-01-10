@@ -1,0 +1,21 @@
+{% extends 'phonebook/base.html' %}
+
+{% block content %}
+
+    {% if registered %}
+        <h1>Thanks for registering!</h1>
+    {% else %}
+        <h1 class='display-5'>Register here</h1>
+        <h3 class='display-6'>Fill up the form</h1>
+
+        <form method='POST' action=' '>
+        {% csrf_token %} 
+        {{ user_form.as_p }}
+        {{ user_profile_info_form.as_p }}
+        <input type='submit' value='Register'>
+        </form>
+
+    {% endif %}
+
+
+{% endblock content %}

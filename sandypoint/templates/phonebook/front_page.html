@@ -1,0 +1,30 @@
+{% extends 'phonebook/base.html' %}
+{% block content %}
+<h1 class='display-3 text-center'>Punta Arenas RAAL-ALE Contacts</h1>
+<table class="table table-striped table-bordered">
+    <tr>
+        <thead class="thead-dark">
+            <th>Name</th>
+            <th>Company</th>
+            <th>Type Contact</th>
+            <th>Phone</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Description</th>
+        </thead>
+    </tr>
+
+    {% for instance in object_list %}
+    <tr>
+        <td>{{ instance.firstname }} {{ instance.lastname }}</td>
+        <td>{{ instance.company }}</td>
+        <td>{{ instance.contact_type }}</td>
+        <td>{{ instance.phone }}</td>
+        <td>{{ instance.mobile_phone }}</td>
+        <td>{{ instance.email }}</td>
+        <td>{{ instance.description }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% block navbar %}
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <a class="navbar-brand color-primary" href="{% url 'phonebook:frontPage' %}">Phonebook</a>
+        <a class="navbar-brand color-primary" href="#">Filtered Search</a>
+        <a class="navbar-brand color-primary" href="{% url 'phonebook:addContact' %}">Add Contact</a>
+        <a class="navbar-brand color-primary" href="#">Sitrep</a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search Contact" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <a class="navbar-brand color-primary" href="{% url 'admin:index' %}">Admin</a>
+        <a class="navbar-brand color-primary" href="{% url 'phonebook:registerNewUser' %}">Register</a>
+
+        {% if user.is_authenticated %}
+            <li><a class='navbar-link' href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+            <li><a class='navbar-link' href="{% url 'phonebook:user_login' %}">Login</a></li>
+        {% endif %}
+
+    </nav>
+
+
+{% endblock %}
+
+
+
