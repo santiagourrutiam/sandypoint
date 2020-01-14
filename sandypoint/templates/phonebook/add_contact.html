@@ -1,48 +1,49 @@
 {% extends 'phonebook/base.html' %}
+
 {% block title %} Add Contact {% endblock title %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 
-<form action='.' method='POST'>
-    {% csrf_token %}
-    <h1 class='display-3 text-center'>Add Contact</h1>
-    <div class="row row-cols-12">
-        <div class="col-4">
-            {{ form.firstname|as_crispy_field }}
+<div class="jumbotron bg-info text-light">
+ <h1 class='display-3 text-left'>Add Contact</h1>
+    <form action='.' method='POST'>
+        {% csrf_token %}
+       
+        <div class="row row-cols-12">
+            <div class="col-4">
+                {{ form.firstname|as_crispy_field }}
+            </div>
+            <div class="col-4">
+                {{ form.lastname|as_crispy_field }}
+            </div>
+            <div class="col-4">
+                {{ form.company|as_crispy_field }}
+            </div>
         </div>
-        <div class="col-4">
-            {{ form.lastname|as_crispy_field }}
+        <div class="row">
+            <div class="col-12">
+                {{ form.contact_type|as_crispy_field }}
+            </div>
         </div>
-        <div class="col-4">
-            {{ form.company|as_crispy_field }}
+        <div class="row">
+            <div class="col-4">
+                {{ form.primary_phone|as_crispy_field }}
+            </div>
+            <div class="col-4">
+                {{ form.mobile_phone|as_crispy_field }}
+            </div>
+            <div class="col-4">
+                {{ form.email|as_crispy_field }}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            {{ form.contact_type|as_crispy_field }}
+        <div class="row">
+            <div class="col-12">
+                {{ form.description|as_crispy_field }}
+            </div>
         </div>
-    </div>
-    <div class="row">
-         <div class="col-4">
-            {{ form.phone|as_crispy_field }}
-        </div>
-        <div class="col-4">
-            {{ form.mobile_phone|as_crispy_field }}
-        </div>
-        <div class="col-4">
-            {{ form.email|as_crispy_field }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            {{ form.description|as_crispy_field }}
-        </div>
-    </div>
-
-    <div class="row justify-content-center">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Add your new contact</button>
-    </div> 
-</form>
+        <button type="submit" class="btn btn-warning btn-lg btn-block">Add your new contact</button>   
+    </form>
+</div>
 
 {% endblock %}

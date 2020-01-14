@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 {% block navbar %}
+{% load staticfiles %}
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-        <a class="navbar-brand color-primary" href="{% url 'phonebook:frontPage' %}">Phonebook</a>
-        <a class="navbar-brand color-primary" href="#">Filtered Search</a>
-        <a class="navbar-brand color-primary" href="{% url 'phonebook:addContact' %}">Add Contact</a>
-        <a class="navbar-brand color-primary" href="#">Sitrep</a>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search Contact" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <a class="navbar-brand color-primary" href="{% url 'admin:index' %}">Admin</a>
-        <a class="navbar-brand color-primary" href="{% url 'phonebook:registerNewUser' %}">Register</a>
-
-        {% if user.is_authenticated %}
-            <li><a class='navbar-link' href="{% url 'logout' %}">Logout</a></li>
-        {% else %}
-            <li><a class='navbar-link' href="{% url 'phonebook:user_login' %}">Login</a></li>
-        {% endif %}
-
-    </nav>
-
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand" href="#">
+            <img src="{% static 'raal_logo.png' %}" width="45" height="45" alt="RAAL"></img></a>
+            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:showAllContacts' %}">Phonebook</a></li>
+            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:filteredContacts' %}">Filtered Search</a></li>
+            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:addContact' %}">Add Contact</a></li>
+            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:addNewSitrep' %}">Sitrep</a></li>
+        </ul>
+    </div> 
+    <div class="navbar-collapse collapse w-100 order-2 dual-collapse2">
+          <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search Contact" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+    </div>       
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li><strong class='display-6 text-white'>You are logged in as {{user.username}}  |  </strong><a class='navbar-brand color-primary' href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <a class="navbar-brand btn btn-outline-secondary" href="{% url 'phonebook:registerNewUser' %}">Register</a>
+                <a class='navbar-brand color-primary btn btn-primary' href="{% url 'phonebook:userLogin' %}">Login</a>
+            {% endif %}
+        </ul>  
+    </div>
+</nav>
 
 {% endblock %}
 

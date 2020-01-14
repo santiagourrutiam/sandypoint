@@ -1,20 +1,22 @@
 {% extends 'phonebook/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-<div class='jumbotron'>
+<div class='jumbotron bg-info text-white'>
     <h1 class='display-6'>Please Login</h1>
-    <form action="{% url 'phonebook:user_login' %}" method='POST'>
+    <form class="form-inline" action="{% url 'phonebook:userLogin' %}" method='POST'>
         {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type='text' name='username' placeholder='Enter Username'>
-
+        <div class="form-group">
+        <label for="username">Username: </label>
+        <input class='form-control' type='text' name='username' placeholder='Enter Username'>
         <label for='password'> Password: </label>
-        <input type='password' name='password'>
-
-        <input type='submit' name='' value='Login'>
+        <input class='form-control' type='password' name='password'>
+        <button class="btn btn-dark" type='submit'>Login</button>
+        </div>
     </form>
 </div>
+
 
 {% endblock content %}
 

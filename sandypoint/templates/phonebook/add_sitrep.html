@@ -1,0 +1,15 @@
+{% extends 'phonebook/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class='jumbotron bg-info text-light'>
+     <form method='POST' action=' '>
+        {% csrf_token %} 
+        <h1 class='display-3 text-left'>Add Sitrep</h1>
+        {{ form.as_p }}
+        <button type='submit' class="btn btn-warning btn-lg btn-block">Add your sitrep</button>
+    </form>
+</div> 
+
+{% endblock %}

@@ -17,9 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from phonebook import urls
 from phonebook import views
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('phonebook.urls')),
     path('logout/',views.user_logout, name='logout'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/',include(debug_toolbar.urls)),
+    ] + urlpatterns

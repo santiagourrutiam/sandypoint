@@ -1,0 +1,21 @@
+{% extends 'phonebook/base.html' %}
+
+{% block content %}
+
+<div class="table-responsive-sm">
+    <table class='table table-dark'>
+        <tbody>
+            {% for instance in object_list %}
+                <tr scope="row">
+                    <h2>{{ instance.name }}</h2>
+                    <h5>Description:</h5>
+                    <h5>{{ instance.description }} </h5>
+                    <h5>Time: {{ instance.sitrep_time|date:'d-M/H:i' }}z</h5>
+                    <hr>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

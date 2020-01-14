@@ -1,21 +1,23 @@
 {% extends 'phonebook/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
     {% if registered %}
         <h1>Thanks for registering!</h1>
     {% else %}
-        <h1 class='display-5'>Register here</h1>
-        <h3 class='display-6'>Fill up the form</h1>
-
-        <form method='POST' action=' '>
-        {% csrf_token %} 
-        {{ user_form.as_p }}
-        {{ user_profile_info_form.as_p }}
-        <input type='submit' value='Register'>
-        </form>
+        <div class="form-group">
+        <h1 class='display-5 text-center'>Register here</h1>
+        <form class='form-control' method='POST' action=' '>
+                {% csrf_token %} 
+                {{ user_form|crispy }}
+                {{ user_profile_info_form|crispy }}
+            <button class='btn btn-primary' type='submit'>Register</button>
+            </form>
+        </div>
 
     {% endif %}
+
+
 
 
 {% endblock content %}

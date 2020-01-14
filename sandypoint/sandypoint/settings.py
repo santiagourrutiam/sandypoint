@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'phonebook',
     'bootstrap4',
     'crispy_forms',
     'bootstrap_datepicker_plus',
+    'django_filters',
     
 ]
 
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'sandypoint.urls'
@@ -135,4 +138,11 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-LOGIN_URL = '/phonebook/user_login'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+
+LOGIN_URL = '/userlogin/'
+INTERNAL_IPS = ['127.0.0.1']

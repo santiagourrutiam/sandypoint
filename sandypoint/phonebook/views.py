@@ -1,30 +1,50 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
-from .models import Contact, UserProfileInfo
-from phonebook.forms import AddNewContactForm, UserForm, UserProfileInfoForm
-
+from phonebook.models import Contact, UserProfileInfo, Sitrep
+from phonebook.forms import AddNewContactForm, UserForm, UserProfileInfoForm, AddSitrepForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from .filters import ContactFilter
 
-
-# Create your views here.
-
-#FrontPAge that shows the phonebook list
-def frontPage(request):
+#The view for showing all contacts in the database, an open phonebook
+@login_required
+def showAllContacts(request):
     queryset = Contact.objects.all()
     context = {
         'object_list': queryset,
     }
     return render (request, 'phonebook/front_page.html',context)
 
+
+#SITREP SECTION [ADD SITREP VIEW | SHOW SITREPS VIEW]
+@login_required
+def addNewSitrep(request):
+    form = AddSitrepForm()
+    if request.method == 'POST':
+        form = AddSitrepForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return showAllSitrep(request)
+        else:
+            print ('Error, Form Invalid')
+
+    return render (request, 'phonebook/add_sitrep.html', {'form':form})
+
+@login_required
+def showAllSitrep (request):
+    queryset = Sitrep.objects.all()
+    return render (request, 'phonebook/show_sitrep.html',{'object_list': queryset})
+    
+
+
 @login_required
 def user_logout (request):
     logout(request)
-    return HttpResponseRedirect(reverse('phonebook:frontPage'))
+    return HttpResponseRedirect(reverse('phonebook:userLogin'))
 
-#Registration Page for new Users
+#REGISTRATION PAGE FOR NEW USERS
 def registerNewUser(request):
     
     registered = False
@@ -55,23 +75,30 @@ def registerNewUser(request):
                      'user_profile_info_form':user_profile_info_form,
                      'registered':registered})
 
-#Vista para carga el formulario que agrega un nuevo contacto.
-
+#ADD NEW CONTACT VIEW
+@login_required
 def addContact(request):
     form = AddNewContactForm()
     if request.method == 'POST':
         form = AddNewContactForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            return frontPage(request)
+            return showAllContacts(request)
         else:
             print ('Error, Form Invalid')
 
     return render (request, 'phonebook/add_contact.html', {'form':form})
 
+#FILTERED BY CONTACT TYPE SEARCH
+@login_required
+def filteredContacts (request):
+    contact_list = Contact.objects.all()
+    contact_filter = ContactFilter(request.GET, queryset=contact_list)
+    
+    return render(request, 'phonebook/filtered_search.html', {'filter': contact_filter})
+    
 
-def user_login (request):
-
+def userLogin(request):
     if request.method == 'POST':
         username = request.POST.get ('username')
         password = request.POST.get ('password')
@@ -81,7 +108,7 @@ def user_login (request):
         if user:
             if user.is_active:
                 login(request,user)
-                return HttpResponseRedirect(reverse('phonebook:frontPage'))
+                return HttpResponseRedirect(reverse('phonebook:showAllContacts'))
             else:
                 return HttpResponse ('Account not active')
         else:

@@ -1,0 +1,40 @@
+{% extends 'phonebook/base.html' %}
+
+{% block content %}
+
+<div class="jumbotron bg-info text-light">
+   <form method="get">
+    {{ filter.form.as_p }}
+    <button class="btn btn-secondary" type="submit">FILTER BY CONTACT TYPE</button>
+  </form>
+</div>
+  
+<div class="table-responsive-sm">
+<table class="table table-hover table-bordered table-sm">
+    <tr>
+        <thead class="thead-light">
+            <th>Name</th>
+            <th>Company</th>
+            <th>Type Contact</th>
+            <th>Primary Phone</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Added On</th>
+            
+        </thead>
+    </tr>
+     {% for Contact in filter.qs %}
+    <tr>
+        <td>{{ Contact.firstname|title }} {{ Contact.lastname|title }}</td>
+        <td>{{ Contact.company }}</td>
+        <td>{{ Contact.contact_type|title }}</td>
+        <td>{{ Contact.primary_phone }}</td>
+        <td>{{ Contact.mobile_phone }}</td>
+        <td>{{ Contact.email }}</td>
+        <td>{{ Contact.date_added|date:'d-M-Y' }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% endblock %}
