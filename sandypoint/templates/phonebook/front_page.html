@@ -1,10 +1,12 @@
 {% extends 'phonebook/base.html' %}
 {% load crispy_forms_tags %}
 
+
 {% block content %}
-<div class="jumbotron jumbotron-fluid bg-info text-light">
+<div class="jumbotron jumbotron-fluid bg-dark text-light">
   <div class="container">
     <h1 class="display-4">ALE PA Contacts Suite</h1>
+    <p><span class="badge badge-warning">Beta version 0.8</span></p>
     <p class="lead">This is a little project from the comms team 2019 to log sitreps and contacts for PA.</p>
   </div>
 </div>
@@ -15,9 +17,9 @@
     <tr>
         <thead class="thead-light">
             <th>Name</th>
+            <th>Primary Phone</th>
             <th>Company</th>
             <th>Type Contact</th>
-            <th>Primary Phone</th>
             <th>Mobile</th>
             <th>Email</th>
             <th>Added On</th>
@@ -26,10 +28,10 @@
     </tr>
     {% for instance in object_list %}
     <tr>
-        <td>{{ instance.firstname|title }} {{ instance.lastname|title }}</td>
+        <td><h5><span class="badge badge-primary">{{ instance.firstname|title }} {{ instance.lastname|title }}</span></h5></td>
+        <td><h5><span class="badge badge-warning">{{ instance.primary_phone }}</span></h5></td>
         <td>{{ instance.company }}</td>
-        <td>{{ instance.contact_type|title }}</td>
-        <td>{{ instance.primary_phone }}</td>
+        <td>{{ instance.contact_type|upper }}</td>
         <td>{{ instance.mobile_phone }}</td>
         <td>{{ instance.email }}</td>
         <td>{{ instance.date_added|date:'d-M-Y' }}</td>

@@ -14,4 +14,5 @@ urlpatterns = [
     path('addsitrep/', views.addNewSitrep,name='addNewSitrep'),
     path('showsitrep/', views.showAllSitrep,name='showAllSitrep'),
     path('search/', views.filteredContacts,name='filteredContacts'),
+    path('searchstrings/', views.SearchResultsView,name='SearchResultsView'),
 ]

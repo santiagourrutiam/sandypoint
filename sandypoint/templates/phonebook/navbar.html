@@ -1,35 +1,50 @@
-<!DOCTYPE html>
-{% block navbar %}
 {% load staticfiles %}
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav mr-auto">
-            <a class="navbar-brand" href="#">
-            <img src="{% static 'raal_logo.png' %}" width="45" height="45" alt="RAAL"></img></a>
-            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:showAllContacts' %}">Phonebook</a></li>
-            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:filteredContacts' %}">Filtered Search</a></li>
-            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:addContact' %}">Add Contact</a></li>
-            <li><a class="navbar-brand color-primary" href="{% url 'phonebook:addNewSitrep' %}">Sitrep</a></li>
-        </ul>
-    </div> 
-    <div class="navbar-collapse collapse w-100 order-2 dual-collapse2">
-          <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Contact" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-    </div>       
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul class="navbar-nav ml-auto">
+{% block navbar %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+  <a class="navbar-brand text-primary" href="{% url 'phonebook:showAllContacts' %}"><img src="{% static 'raal_logo.png' %}" width="45" height="45" alt="RAAL"></img></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-light bg-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Contacts</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'phonebook:addContact' %}">Add Contacts</a>
+          <a class="dropdown-item" href="{% url 'phonebook:filteredContacts' %}">Filtered Search</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-light bg-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sitrep</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'phonebook:addNewSitrep' %}">Add Daily Sitrep</a>
+          <a class="dropdown-item" href="{% url 'phonebook:showAllSitrep' %}">View Daily Sitreps</a>
+        </div>
+      </li>
+    </ul>
+    <div="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
+                <div class="container">
+                  <form action="{% url 'phonebook:SearchResultsView' %}" method="GET" class="form-inline">{% csrf_token %}
+                    <input name='q' class="form-control mr-sm-3" type="text" placeholder="Search Contact" aria-label="Search">
+                    <button class="btn btn-outline-dark my-2 my-sm-0 glyphicon glyphicon-search" type="submit">Search</button>
+                  </form>
+                </div>
                 <li><strong class='display-6 text-white'>You are logged in as {{user.username}}  |  </strong><a class='navbar-brand color-primary' href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-                <a class="navbar-brand btn btn-outline-secondary" href="{% url 'phonebook:registerNewUser' %}">Register</a>
-                <a class='navbar-brand color-primary btn btn-primary' href="{% url 'phonebook:userLogin' %}">Login</a>
+              <a class="navbar-brand btn btn-outline-dark text-light bg-primary" href="{% url 'phonebook:registerNewUser' %}">Register</a>
+              <a class='navbar-brand color-dark btn btn-dark text-light bg-success' href="{% url 'phonebook:userLogin' %}">Login</a>
             {% endif %}
-        </ul>  
+      </ul>  
     </div>
 </nav>
+
 
 {% endblock %}
 

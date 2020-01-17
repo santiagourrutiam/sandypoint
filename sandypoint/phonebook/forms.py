@@ -1,9 +1,20 @@
-from django import forms
+"""
+@Santiago Urrutia
+phonebook/forms.py
 
+Contains all forms of the application.
+1) AddSitrepForm class (name, description)
+2) UserForm
+3) UserProfileInfoForm
+
+"""
+
+from django import forms
 from django.forms import ModelForm
 from phonebook.models import UserProfileInfo, Sitrep, Contact
 from django.contrib.auth.models import User
 
+#1)
 class AddSitrepForm (forms.ModelForm):
     name = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'form-control'}))
     description = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'class':'form-control'}))
@@ -11,30 +22,19 @@ class AddSitrepForm (forms.ModelForm):
         model = Sitrep
         fields = '__all__'
 
-
+#2)
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta():
         model = User
         fields = ('username', 'email', 'password')
 
+#3)
 class UserProfileInfoForm(forms.ModelForm):
     class Meta():
         model = UserProfileInfo
         fields = ('department',)
     
-
-
-CONTACT_TYPE_CHOICES = [
-                ('Airport', 'AIRPORT'),
-                ('CUSTOMS','Customs'),
-                ('SHIPPING','Shipping'),
-                ('TRANSPORT','Transport'),
-                ('PROVIDERS','Providers'),
-                ('ACCOMODATION','Hotels/Accomodation'),
-                ('ALE','ALE Staff'),
-            ]
-
 class AddNewContactForm(forms.ModelForm):
     description = forms.CharField(
         max_length=400, 
@@ -44,12 +44,10 @@ class AddNewContactForm(forms.ModelForm):
             }
         )
     )
+    email = forms.EmailField(
+        max_length=200,
+        required=False)
+    
     class Meta():
         model = Contact
         fields = '__all__' 
-
-# class SearchForm(forms.Form):
-#     query = forms.CharField(label=_('Query'), max_length=100,
-#                             widget=forms.TextInput(attrs={'class': 'form-control system-search', 'required': '',
-#                                                           'tabindex': 1, 'autofocus': '1',
-#                                                           'placeholder': _('Search contact')}))

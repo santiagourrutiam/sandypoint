@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<div class="jumbotron bg-info text-light">
+<div class="jumbotron bg-dark text-light">
    <form method="get">
     {{ filter.form.as_p }}
-    <button class="btn btn-secondary" type="submit">FILTER BY CONTACT TYPE</button>
+    <button class="btn btn-warning" type="submit">Search</button>
   </form>
 </div>
   
@@ -20,7 +20,6 @@
             <th>Mobile</th>
             <th>Email</th>
             <th>Added On</th>
-            
         </thead>
     </tr>
      {% for Contact in filter.qs %}

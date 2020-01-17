@@ -2,20 +2,18 @@
 
 {% block content %}
 
-<div class="table-responsive-sm">
-    <table class='table table-dark'>
-        <tbody>
-            {% for instance in object_list %}
-                <tr scope="row">
-                    <h2>{{ instance.name }}</h2>
-                    <h5>Description:</h5>
-                    <h5>{{ instance.description }} </h5>
-                    <h5>Time: {{ instance.sitrep_time|date:'d-M/H:i' }}z</h5>
-                    <hr>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+{% for instance in object_list %}
+        <div class="jumbotron bg-secondary">
+            <div class="container text-white">
+                <h2 class="display-6">{{instance.name|title}} | {{ instance.sitrep_time|date:'d-M-H:i' }}</h2>
+                <p class="display-6" style="font-size:1.7rem"><span class="badge badge-warning badge">Sitrep Description:</span></p>
+                <p class="lead">{{ instance.description }}</p>
+            </div>
+        </div>
+{% empty %}
+        <div class="jumbotron bg-secondary text-light">
+            <h1>There are no sitreps for {% now "jS F Y H:i" %} </h1>
+        </div>
+{% endfor %}
 
 {% endblock %}
